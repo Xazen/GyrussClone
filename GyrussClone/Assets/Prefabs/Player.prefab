@@ -73,6 +73,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14a7edbe6761a545b4b68d399880ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 151946, guid: 721be216bae3237478a7855ac8f00874, type: 2}
+  projectilePool: 3
+  fireRate: .200000003
+  rotationSpeed: 50
 --- !u!136 &13689010
 CapsuleCollider:
   m_ObjectHideFlags: 1

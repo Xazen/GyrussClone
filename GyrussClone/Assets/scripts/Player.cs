@@ -6,12 +6,80 @@ using UnityGameBase;
 
 public class Player : GameComponent<InGame>
 {
+    [SerializeField]
+    private GameObject projectile;
+    [SerializeField]
+    private int projectilePool = 20;
+    [SerializeField]
+    private float fireRate = 1.0f;
+    private int currentProjectiles = 0;
+
+    [SerializeField]
+    private float rotationSpeed = 50.0f;
+
+    private bool shouldRotateLeft = false;
+    private bool shouldRotateRight = false;
+    private bool shouldFire = false;
+
+    private Vector3? rotatePoint;
+
     public void Start ()
     {
+        // Prepare projectiles
+        this.Game.objectPool.CreateNewObjectPoolEntry(projectile, Projectile.ID, projectilePool);
+
         // Setup delegate methods
         this.Game.gameInput.KeyDown += KeyDown;
         this.Game.gameInput.KeyUp += KeyUp;
+
+        rotatePoint = GameObject.FindGameObjectWithTag(InGame.Tag.SPAWN_POINT).transform.position;
     }
+
+    public void Update()
+    {
+        if (shouldRotateLeft)
+        {
+            RotateLet();
+        }
+
+        if (shouldRotateRight)
+        {
+            RotateRight();
+        }
+    }
+
+    #region Player Actions
+    public void RotateLet()
+    {
+        if (rotatePoint.HasValue)
+        {
+            this.transform.RotateAround(rotatePoint.Value, Vector3.back, Time.deltaTime * rotationSpeed);
+        }
+    }
+
+    public void RotateRight()
+    {
+        if (rotatePoint.HasValue)
+        {
+            this.transform.RotateAround(rotatePoint.Value, Vector3.forward, Time.deltaTime * rotationSpeed);
+        }
+    }
+
+    public IEnumerator Fire()
+    {
+        while (true)
+        {
+            GameObject p = this.Game.objectPool.GetInstance(Projectile.ID);
+            p.transform.position = this.transform.position;
+            p.transform.rotation = this.transform.rotation;
+            
+            for (float timer = 0; timer <= fireRate; timer += Time.deltaTime)
+            {
+                yield return 0;
+            }
+        }
+    }
+    #endregion
 
     #region GameInputDelegate
     public void KeyDown(string keyMappingName)
@@ -21,13 +89,15 @@ public class Player : GameComponent<InGame>
         switch (keyCode)
         {
             case KeyCode.LeftArrow:
-                Debug.Log("Pressed left");
+                shouldRotateRight = false;
+                shouldRotateLeft = true;
                 break;
             case KeyCode.RightArrow:
-                Debug.Log("Pressed right");
+                shouldRotateRight = true;
+                shouldRotateLeft = false;
                 break;
             case KeyCode.Space:
-                Debug.Log("Pressed space");
+                StartCoroutine("Fire");
                 break;
             default:
                 break;
@@ -41,13 +111,13 @@ public class Player : GameComponent<InGame>
         switch (keyCode)
         {
             case KeyCode.LeftArrow:
-                Debug.Log("Released left");
+                shouldRotateLeft = false;
                 break;
             case KeyCode.RightArrow:
-                Debug.Log("Released right");
+                shouldRotateRight = false;
                 break;
             case KeyCode.Space:
-                Debug.Log("Released space");
+                StopCoroutine("Fire");
                 break;
             default:
                 break;

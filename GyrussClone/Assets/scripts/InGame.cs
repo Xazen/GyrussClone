@@ -6,7 +6,7 @@ using UnityGameBase;
 
 public class InGame : Game
 {
-    public static class Tag
+    public class Tag
     {
         public static string PLAYER = "Player";
         public static string ENEMY = "Enemy";
