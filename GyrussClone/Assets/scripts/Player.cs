@@ -6,6 +6,7 @@ using UnityGameBase;
 
 public class Player : GameComponent<InGame>
 {
+    #region Projectile variables
     [SerializeField]
     private GameObject projectile;
     [SerializeField]
@@ -13,15 +14,17 @@ public class Player : GameComponent<InGame>
     [SerializeField]
     private float fireRate = 1.0f;
     private int currentProjectiles = 0;
+    #endregion
 
+    #region movement variables
     [SerializeField]
     private float rotationSpeed = 50.0f;
 
     private bool shouldRotateLeft = false;
     private bool shouldRotateRight = false;
-    private bool shouldFire = false;
 
     private Vector3? rotatePoint;
+    #endregion
 
     public void Start ()
     {
@@ -32,11 +35,13 @@ public class Player : GameComponent<InGame>
         this.Game.gameInput.KeyDown += KeyDown;
         this.Game.gameInput.KeyUp += KeyUp;
 
+        // Get the rotation point from the spawn point position
         rotatePoint = GameObject.FindGameObjectWithTag(InGame.Tag.SPAWN_POINT).transform.position;
     }
 
     public void Update()
     {
+        // Check whether the player should move
         if (shouldRotateLeft)
         {
             RotateLet();
@@ -49,6 +54,9 @@ public class Player : GameComponent<InGame>
     }
 
     #region Player Actions
+    /// <summary>
+    /// Player moves anticlockwise
+    /// </summary>
     public void RotateLet()
     {
         if (rotatePoint.HasValue)
@@ -57,6 +65,9 @@ public class Player : GameComponent<InGame>
         }
     }
 
+    /// <summary>
+    /// Player moves clockwise
+    /// </summary>
     public void RotateRight()
     {
         if (rotatePoint.HasValue)
@@ -65,6 +76,10 @@ public class Player : GameComponent<InGame>
         }
     }
 
+    /// <summary>
+    /// Fires a projectile with the frequency specified by fireRate
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator Fire()
     {
         while (true)
@@ -82,6 +97,10 @@ public class Player : GameComponent<InGame>
     #endregion
 
     #region GameInputDelegate
+    /// <summary>
+    /// Called when a key is pressed
+    /// </summary>
+    /// <param name="keyMappingName"></param>
     public void KeyDown(string keyMappingName)
     {
         KeyCode keyCode = this.Game.gameInput.GetKeyMapping(keyMappingName).keyCode;
@@ -104,6 +123,10 @@ public class Player : GameComponent<InGame>
         }
     }
 
+    /// <summary>
+    /// Called when a key is released
+    /// </summary>
+    /// <param name="keyMappingName"></param>
     public void KeyUp(string keyMappingName)
     {
         KeyCode keyCode = this.Game.gameInput.GetKeyMapping(keyMappingName).keyCode;

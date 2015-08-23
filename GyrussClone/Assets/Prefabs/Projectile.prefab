@@ -100,8 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37d425c9ae46d342835e901abcaffcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
-  projectileLifeTime: 2
+  speed: 20
 --- !u!198 &19806812
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -2305,7 +2304,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: speed
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: projectileLifeTime
