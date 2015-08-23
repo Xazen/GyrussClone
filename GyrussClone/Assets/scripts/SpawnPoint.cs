@@ -6,6 +6,8 @@ using UnityGameBase;
 
 public class SpawnPoint : GameComponent<InGame>
 {
+
+
     public void Start()
     {
 

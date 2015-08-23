@@ -50,11 +50,11 @@ public class InGame : Game
 
     protected override void Initialize()
     {
-        // Prepare projectiles, boms and enemies with the object pool
     }
 
     protected override void GameSetupReady()
     {
+        // Prepare projectiles, boms and enemies with the object pool
         this.objectPool.CreateNewObjectPoolEntry(enemy, (int)InGame.ObjectPoolID.EnemeyID, enemyPoolCount);
         this.objectPool.CreateNewObjectPoolEntry(projectile, (int)InGame.ObjectPoolID.ProjectileID, projectilePoolCount);
         this.objectPool.CreateNewObjectPoolEntry(bomb, (int)InGame.ObjectPoolID.BombID, bombPoolCount);
