@@ -6,8 +6,6 @@ using UnityGameBase;
 
 public class Projectile : GameComponent<InGame>
 {
-    public static int ID = 1;
-
     [SerializeField]
     private float speed = 30.0f;
 
@@ -22,7 +20,7 @@ public class Projectile : GameComponent<InGame>
         // Return this projectile to the object pool when it reaches the spawn point (center)
         if (col.gameObject == GameObject.FindGameObjectWithTag(InGame.Tag.SPAWN_POINT))
         {
-            this.Game.objectPool.ReturnObject(this.gameObject, Projectile.ID);
+            this.Game.objectPool.ReturnObject(this.gameObject, (int) InGame.ObjectPoolID.ProjectileID);
         }
     }
 }

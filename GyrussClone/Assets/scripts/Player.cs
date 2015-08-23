@@ -8,12 +8,7 @@ public class Player : GameComponent<InGame>
 {
     #region Projectile variables
     [SerializeField]
-    private GameObject projectile;
-    [SerializeField]
-    private int projectilePool = 20;
-    [SerializeField]
     private float fireRate = 1.0f;
-    private int currentProjectiles = 0;
     #endregion
 
     #region movement variables
@@ -28,9 +23,6 @@ public class Player : GameComponent<InGame>
 
     public void Start ()
     {
-        // Prepare projectiles
-        this.Game.objectPool.CreateNewObjectPoolEntry(projectile, Projectile.ID, projectilePool);
-
         // Setup delegate methods
         this.Game.gameInput.KeyDown += KeyDown;
         this.Game.gameInput.KeyUp += KeyUp;
@@ -84,7 +76,7 @@ public class Player : GameComponent<InGame>
     {
         while (true)
         {
-            GameObject p = this.Game.objectPool.GetInstance(Projectile.ID);
+            GameObject p = this.Game.objectPool.GetInstance((int) InGame.ObjectPoolID.ProjectileID);
             p.transform.position = this.transform.position;
             p.transform.rotation = this.transform.rotation;
             
@@ -125,6 +117,7 @@ public class Player : GameComponent<InGame>
 
     /// <summary>
     /// Called when a key is released
+    /// 
     /// </summary>
     /// <param name="keyMappingName"></param>
     public void KeyUp(string keyMappingName)

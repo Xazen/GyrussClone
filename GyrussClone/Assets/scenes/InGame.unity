@@ -267,6 +267,12 @@ MonoBehaviour:
   gameInput: {fileID: 89127581}
   sceneTransition: {fileID: 0}
   version: 0
+  projectile: {fileID: 151946, guid: 721be216bae3237478a7855ac8f00874, type: 2}
+  projectilePoolCount: 20
+  enemy: {fileID: 188230, guid: 503f58a66e517e84096efa495e70aff8, type: 2}
+  enemyPoolCount: 20
+  bomb: {fileID: 188356, guid: f931cc4a4b733de43bd95e4d77036cbb, type: 2}
+  bombPoolCount: 20
 --- !u!4 &89127583
 Transform:
   m_ObjectHideFlags: 0
