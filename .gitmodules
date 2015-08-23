@@ -1,0 +1,3 @@
+[submodule "GyrussClone/Assets/packages/UGB"]
+	path = GyrussClone/Assets/packages/UGB
+	url = https://github.com/kwnetzwelt/ugb-source.git
