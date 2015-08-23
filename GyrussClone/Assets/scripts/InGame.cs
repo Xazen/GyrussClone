@@ -28,6 +28,8 @@ public class InGame : Game
         public static string SPAWN_POINT = "SpawnPoint";
         public static string BOMB = "Bomb";
         public static string PLAYER_HEALTH = "PlayerHealth";
+        public static string GAME_OVER = "GameOver";
+        public static string SCORE = "Score";
     }
     #endregion
 
@@ -48,16 +50,27 @@ public class InGame : Game
     private int bombPoolCount = 20;
     #endregion
 
+    private GameObject gameOver;
+    public int score;
+
     protected override void Initialize()
     {
+
     }
 
     protected override void GameSetupReady()
     {
         // Prepare projectiles, boms and enemies with the object pool
+        gameOver = GameObject.FindGameObjectWithTag(InGame.Tag.GAME_OVER);
+        gameOver.SetActive(false);
         this.objectPool.CreateNewObjectPoolEntry(enemy, (int)InGame.ObjectPoolID.EnemeyID, enemyPoolCount);
         this.objectPool.CreateNewObjectPoolEntry(projectile, (int)InGame.ObjectPoolID.ProjectileID, projectilePoolCount);
         this.objectPool.CreateNewObjectPoolEntry(bomb, (int)InGame.ObjectPoolID.BombID, bombPoolCount);
+    }
+
+    public void showGameOver()
+    {
+        gameOver.SetActive(true);
     }
 }
 
