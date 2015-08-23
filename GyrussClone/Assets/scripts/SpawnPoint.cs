@@ -8,6 +8,8 @@ public class SpawnPoint : GameComponent<InGame>
 {
     [SerializeField]
     private float swarmSize = 3;
+    [SerializeField]
+    private float spawnRate = 1.3f;
 
     [SerializeField]
     private float minStartSpawnTime = 5.0f;
@@ -21,12 +23,16 @@ public class SpawnPoint : GameComponent<InGame>
         StartCoroutine(StartSpawning());
     }
 
+    /// <summary>
+    /// Start spawning enemies
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator StartSpawning()
     {
         while (true)
         {
             // Spawn enemies
-            StartCoroutine(SpawnEnemies());
+            StartCoroutine(SpawnEnemySwarm());
 
             // Wait before spawning next swarm
             float waitTime = UnityEngine.Random.Range(minStartSpawnTime, maxStartSpawnTime);
@@ -36,22 +42,36 @@ public class SpawnPoint : GameComponent<InGame>
             }
 
             // Reduce spawn time
-            minStartSpawnTime *= spawnMultiplier;
-            maxStartSpawnTime *= spawnMultiplier;
+            if (minStartSpawnTime >= 3.0f)
+            {
+                minStartSpawnTime *= spawnMultiplier;
+            }
+
+            if (maxStartSpawnTime >= 3.0f)
+            {
+                maxStartSpawnTime *= spawnMultiplier;
+            }
         }
     }
 
-    public IEnumerator SpawnEnemies()
+    /// <summary>
+    /// Spawn enemies
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator SpawnEnemySwarm()
     {
+        int startPoint = UnityEngine.Random.Range(0, 360);
+
         for (int i = 0; i < swarmSize; i++ )
         {
-            for (float timer = 0.0f; timer < 1.0f; timer += Time.deltaTime)
+            for (float timer = 0.0f; timer < spawnRate; timer += Time.deltaTime)
             {
                 yield return 0;
             }
 
             GameObject enemy = this.Game.objectPool.GetInstance((int)InGame.ObjectPoolID.EnemeyID);
             enemy.transform.position = this.transform.position;
+            enemy.transform.rotation = Quaternion.Euler(0, 0, startPoint);
         }
     }
 }

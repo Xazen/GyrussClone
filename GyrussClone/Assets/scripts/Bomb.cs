@@ -20,23 +20,8 @@ public class Bomb : GameComponent<InGame>
 
     public void OnTriggerEnter(Collider col)
     {
-        // Return this projectile to the object pool when it reaches the spawn point (center)
-        if (col.gameObject.tag == InGame.Tag.PLAYER)
-        {
-            // Reduce player health
-            Image healthImage = GameObject.FindGameObjectWithTag(InGame.Tag.PLAYER_HEALTH).GetComponent<Image>();
-            healthImage.fillAmount = healthImage.fillAmount - 0.2f;
-
-            // Show game over screen
-            if (healthImage.fillAmount <= 0)
-            {
-                this.Game.showGameOver();
-            }
-
-            this.Game.objectPool.ReturnObject(this.gameObject, (int) InGame.ObjectPoolID.BombID);
-        }
-
-        if (col.gameObject.tag == InGame.Tag.SCREEN_FRAME)
+        if (col.gameObject.tag == InGame.Tag.SCREEN_FRAME ||
+            col.gameObject.tag == InGame.Tag.PLAYER)
         {
             this.Game.objectPool.ReturnObject(this.gameObject, (int)InGame.ObjectPoolID.BombID);
         }

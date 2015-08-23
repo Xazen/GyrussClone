@@ -12,6 +12,7 @@ GameObject:
   - 136: {fileID: 13689010}
   - 23: {fileID: 2377990}
   - 114: {fileID: 11466300}
+  - 54: {fileID: 5475982}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -62,6 +63,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103232}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &5475982
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103232}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &11466300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -98,6 +114,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: projectilePool
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_UseGravity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

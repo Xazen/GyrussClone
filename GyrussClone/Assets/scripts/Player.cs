@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -140,5 +141,22 @@ public class Player : GameComponent<InGame>
         }
     }
     #endregion
+
+    public void OnTriggerEnter(Collider col)
+    {
+        // Return this projectile to the object pool when it reaches the spawn point (center)
+        if (col.gameObject.tag == InGame.Tag.BOMB)
+        {
+            // Reduce player health
+            Image healthImage = GameObject.FindGameObjectWithTag(InGame.Tag.PLAYER_HEALTH).GetComponent<Image>();
+            healthImage.fillAmount = healthImage.fillAmount - 0.2f;
+
+            // Show game over screen
+            if (healthImage.fillAmount <= 0)
+            {
+                this.Game.showGameOver();
+            }
+        }
+    }
 }
 
