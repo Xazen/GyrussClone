@@ -12,6 +12,7 @@ TagManager:
   - PlayerHealth
   - Score
   - GameOver
+  - ScreenFrame
   layers:
   - Default
   - TransparentFX

@@ -12,24 +12,17 @@ public class Bomb : GameComponent<InGame>
     [SerializeField]
     private float maxLifeTime = 2.0f;
 
-    public void Start()
-    {
-        StartCoroutine(DestroyBomb());
-    }
-
     public void Update()
     {
-        // Move the projectile in a constant speed towards the center
-        this.transform.Translate(Vector3.down * speed * Time.deltaTime);
+         // Move the projectile in a constant speed towards the center
+         this.transform.Translate(Vector3.down * speed * Time.deltaTime);
     }
 
     public void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Hit something");
         // Return this projectile to the object pool when it reaches the spawn point (center)
-        if (col.gameObject == GameObject.FindGameObjectWithTag(InGame.Tag.PLAYER))
+        if (col.gameObject.tag == InGame.Tag.PLAYER)
         {
-            Debug.Log("Hit player");
             // Reduce player health
             Image healthImage = GameObject.FindGameObjectWithTag(InGame.Tag.PLAYER_HEALTH).GetComponent<Image>();
             healthImage.fillAmount = healthImage.fillAmount - 0.2f;
@@ -42,21 +35,11 @@ public class Bomb : GameComponent<InGame>
 
             this.Game.objectPool.ReturnObject(this.gameObject, (int) InGame.ObjectPoolID.BombID);
         }
-    }
 
-    /// <summary>
-    /// Destroy the bomb after a the life time ends
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerator DestroyBomb()
-    {
-        for (float timer = 0.0f; timer <= maxLifeTime; timer += Time.deltaTime)
-        {            
-            yield return 0;
+        if (col.gameObject.tag == InGame.Tag.SCREEN_FRAME)
+        {
+            this.Game.objectPool.ReturnObject(this.gameObject, (int)InGame.ObjectPoolID.BombID);
         }
-
-        Debug.Log("returned");
-        this.Game.objectPool.ReturnObject(this.gameObject, (int)InGame.ObjectPoolID.BombID);
     }
 }
 

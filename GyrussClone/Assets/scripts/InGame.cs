@@ -30,6 +30,7 @@ public class InGame : Game
         public static string PLAYER_HEALTH = "PlayerHealth";
         public static string GAME_OVER = "GameOver";
         public static string SCORE = "Score";
+        public static string SCREEN_FRAME = "ScreenFrame";
     }
     #endregion
 

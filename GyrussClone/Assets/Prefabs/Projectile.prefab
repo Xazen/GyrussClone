@@ -10,9 +10,9 @@ GameObject:
   - 4: {fileID: 422868}
   - 198: {fileID: 19806812}
   - 199: {fileID: 19905818}
-  - 114: {fileID: 11471452}
-  - 65: {fileID: 6510640}
   - 54: {fileID: 5441000}
+  - 65: {fileID: 6510640}
+  - 114: {fileID: 11471452}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Projectile
